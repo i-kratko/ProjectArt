@@ -83,7 +83,7 @@ class GameState():
         npcGroup.add(oldManNPC)
 
         #keys
-        blackDoorKey = Key(1000, 400, const.blackDoorKeyPath)
+        blackDoorKey = Key(1000, 450, const.blackDoorKeyPath)
         keyGroup = pygame.sprite.Group()
         keyGroup.add(blackDoorKey)
 

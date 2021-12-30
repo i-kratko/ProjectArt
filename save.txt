@@ -1,1 +1,1 @@
-{"playerPos": 940, "currentLevel": "first_gallery", "playerHasBlackKey": "yes"}
+{"playerPos": 980, "currentLevel": "first_gallery", "playerHasBlackKey": "yes"}

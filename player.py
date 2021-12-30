@@ -36,4 +36,4 @@ class Player(pygame.sprite.Sprite):
             self.image = self.player_facing_left
         
         self.x += self.velX
-        self.rect = pygame.Rect(int(self.x), int(self.y), 32, 32)
+        self.rect = pygame.Rect(int(self.x), int(self.y), 32, 64)
