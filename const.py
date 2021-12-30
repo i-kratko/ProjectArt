@@ -15,6 +15,8 @@ oldManNPCSpritePath = "ProjectArt\Sprites\OldManNPCSprite.png"
 backgroundPath = "ProjectArt\Sprites\Background.png"
 yellowDoorPath = "ProjectArt\Sprites\YellowDoor.png"
 whiteDoorPath = "ProjectArt\Sprites\WhiteDoor.png"
+blackDoorPath = "ProjectArt\Sprites\BlackDoor.png"
+blackDoorKeyPath = "ProjectArt\Sprites\BlackDoorKey.png"
 ##### GAME STATES #####
 main_menu = "main_menu"
 first_gallery = "first_gallery"

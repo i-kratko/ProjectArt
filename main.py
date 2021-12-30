@@ -70,8 +70,10 @@ class GameState():
 
         #doors
         secondGalleryDoor = Door(800, 400, const.whiteDoorPath)
+        secretGalleryDoor = Door(1300, 400, const.blackDoorPath)
         doorGroup = pygame.sprite.Group()
         doorGroup.add(secondGalleryDoor)
+        doorGroup.add(secretGalleryDoor)
 
         #npcs
         oldManNPC = NPC(500, 400, const.oldManInteraction, const.oldManNPCSpritePath)
