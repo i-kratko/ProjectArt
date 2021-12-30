@@ -9,11 +9,13 @@ from painting import Painting
 from message import Message
 from door import Door
 from npc import NPC
+from key import Key
 import saveData
 
 data = {
     'playerPos' : 400,
-    'currentLevel' : const.first_gallery
+    'currentLevel' : const.first_gallery,
+    'playerHasBlackKey' : "no"
 }
 
 data = saveData.loadData("ProjectArt\save.txt")
@@ -80,6 +82,11 @@ class GameState():
         npcGroup = pygame.sprite.Group()
         npcGroup.add(oldManNPC)
 
+        #keys
+        blackDoorKey = Key(1000, 400, const.blackDoorKeyPath)
+        keyGroup = pygame.sprite.Group()
+        keyGroup.add(blackDoorKey)
+
         #messages
         pressSpaceToContinue = Message(const.pressSpaceToContinue, [255, 255, 255])
 
@@ -123,12 +130,24 @@ class GameState():
                                 dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
                                 pygame.display.update()
                                 pause = True    
+                        for key in keyGroup:
+                            if player.rect.colliderect(key.rect):
+                                print("collisionus")
+                                key.interact()
+                                if key == blackDoorKey:
+                                    data["playerHasBlackKey"] = "yes"
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_a:
                         player.left_pressed = False
                     if event.key == pygame.K_d:
                         player.right_pressed = False
-                
+                #if event.type == pygame.MOUSEBUTTONDOWN:
+                #    pos = pygame.mouse.get_pos()
+                #    if blackDoorKey.rect.collidepoint(pos):
+                #        print("sus")
+                #        blackDoorKey.interact() 
+                #        data["playerHasBlackKey"] = "yes"
+                #
             while pause:
                for event in pygame.event.get():
                    if event.type == pygame.QUIT:
@@ -151,6 +170,8 @@ class GameState():
                 dis.blit(door.image, (door.rect.x - camera.offset.x, door.rect.y - camera.offset.y - 64 - const.OFFSETYFORMAPS))
             for npc in npcGroup:
                 dis.blit(npc.image, (npc.rect.x - camera.offset.x, npc.rect.y - camera.offset.y - const.OFFSETYFORMAPS))
+            for key in keyGroup:
+                dis.blit(key.image, (key.rect.x - camera.offset.x, key.rect.y - camera.offset.y - const.OFFSETYFORMAPS - 1))
             dis.blit(player.image, (player.rect.x - camera.offset.x, player.rect.y - camera.offset.y - const.OFFSETYFORMAPS))
             pygame.display.update()
 
