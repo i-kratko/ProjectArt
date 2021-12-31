@@ -10,6 +10,7 @@ from message import Message
 from door import Door
 from npc import NPC
 from key import Key
+from decoration import Decoration
 import saveData
 
 data = {
@@ -86,6 +87,11 @@ class GameState():
         npcGroup = pygame.sprite.Group()
         npcGroup.add(oldManNPC)
 
+        #decorations
+        flowepot1 = Decoration(1100, 435, const.flowerpotSpritePath)
+        decorationsGroup = pygame.sprite.Group()
+        decorationsGroup.add(flowepot1)
+
         #keys
         blackDoorKey = Key(1100, 450, const.blackDoorKeyPath)
         keyGroup = pygame.sprite.Group()
@@ -147,13 +153,6 @@ class GameState():
                         player.left_pressed = False
                     if event.key == pygame.K_d:
                         player.right_pressed = False
-                #if event.type == pygame.MOUSEBUTTONDOWN:
-                #    pos = pygame.mouse.get_pos()
-                #    if blackDoorKey.rect.collidepoint(pos):
-                #        print("sus")
-                #        blackDoorKey.interact() 
-                #        data["playerHasBlackKey"] = "yes"
-                #
             while pause:
                for event in pygame.event.get():
                    if event.type == pygame.QUIT:
@@ -177,7 +176,9 @@ class GameState():
             for npc in npcGroup:
                 dis.blit(npc.image, (npc.rect.x - camera.offset.x, npc.rect.y - camera.offset.y - const.OFFSETYFORMAPS))
             for key in keyGroup:
-                dis.blit(key.image, (key.rect.x - camera.offset.x, key.rect.y - camera.offset.y - const.OFFSETYFORMAPS - 1))
+                dis.blit(key.image, (key.rect.x - camera.offset.x, key.rect.y - camera.offset.y - const.OFFSETYFORMAPS - 2))
+            for decoration in decorationsGroup:
+                dis.blit(decoration.image, (decoration.rect.x - camera.offset.x, decoration.rect.y - camera.offset.y - const.OFFSETYFORMAPS - 3))
             dis.blit(player.image, (player.rect.x - camera.offset.x, player.rect.y - camera.offset.y - const.OFFSETYFORMAPS))
             pygame.display.update()
 

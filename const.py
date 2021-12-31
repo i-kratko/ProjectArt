@@ -12,6 +12,7 @@ BLACK = [0, 0, 0]
 mainMenuStartButtonPath = "ProjectArt\Sprites\StartButton.png"
 playerSpritePath = "ProjectArt\Sprites\PlayerSprite.png"
 oldManNPCSpritePath = "ProjectArt\Sprites\OldManNPCSprite.png"
+flowerpotSpritePath = "ProjectArt\Sprites\Flowerpot.png"
 backgroundPath = "ProjectArt\Sprites\Background.png"
 yellowDoorPath = "ProjectArt\Sprites\YellowDoor.png"
 whiteDoorPath = "ProjectArt\Sprites\WhiteDoor.png"
