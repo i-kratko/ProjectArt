@@ -65,14 +65,18 @@ class GameState():
         #paintings
         treeInAField = Painting(400, 350, const.treeInAFieldInteraction, const.treeInAFlied)
         sunsetByTheSea = Painting(600, 350, const.sunsetByTheSeaInteraction, const.sunsetByTheSea)
+        snowman = Painting(1000, 350, const.snowmanInteraction, const.snowman)
+        mountains = Painting(1200, 350, const.mountainsInteraction, const.mountains)
 
         paintingGroup = pygame.sprite.Group()
         paintingGroup.add(treeInAField)
         paintingGroup.add(sunsetByTheSea)
+        paintingGroup.add(snowman)
+        paintingGroup.add(mountains)
 
         #doors
         secondGalleryDoor = Door(800, 400, const.whiteDoorPath)
-        secretGalleryDoor = Door(1300, 400, const.blackDoorPath)
+        secretGalleryDoor = Door(1400, 400, const.blackDoorPath)
         doorGroup = pygame.sprite.Group()
         doorGroup.add(secondGalleryDoor)
         doorGroup.add(secretGalleryDoor)
@@ -83,7 +87,7 @@ class GameState():
         npcGroup.add(oldManNPC)
 
         #keys
-        blackDoorKey = Key(1000, 450, const.blackDoorKeyPath)
+        blackDoorKey = Key(1100, 450, const.blackDoorKeyPath)
         keyGroup = pygame.sprite.Group()
         keyGroup.add(blackDoorKey)
 
@@ -123,6 +127,8 @@ class GameState():
                                     self.state = const.second_gallery
                                     data["playerPos"] = 410
                                     self.stateManager()
+                                if door == secretGalleryDoor and data["playerHasBlackKey"] == "yes":
+                                    print("secret door accessed")
                         for npc in npcGroup:
                             if player.rect.colliderect(npc.rect):
                                 npc.interact(const.BLACK)

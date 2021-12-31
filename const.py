@@ -30,9 +30,13 @@ brownFloor2 =  "ProjectArt\Tiles\BrownFloor2.png"
 ##### PAINTING SPRITES ######
 treeInAFlied = "ProjectArt\Sprites\TreeInAField.png"
 sunsetByTheSea = "ProjectArt\Sprites\SunsetByTheSea.png"
+snowman = "ProjectArt\Sprites\Snowman.png"
+mountains = "ProjectArt\Sprites\Mountains.png"
 ##### PAINTING INTERACTONS ######
 treeInAFieldInteraction = "What a peaceful painting"
 sunsetByTheSeaInteraction = "What a beautiful sunset"
+snowmanInteraction = "Okay?..."
+mountainsInteraction = "What in interesting piece"
 ##### NPC INETRACTIONS #####
 oldManInteraction = "These paintings are truly amazing, aren't they?"
 ##### OTHER INTERACTIONS #####
