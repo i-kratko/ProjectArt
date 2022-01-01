@@ -88,9 +88,15 @@ class GameState():
         npcGroup.add(oldManNPC)
 
         #decorations
-        flowepot1 = Decoration(1100, 435, const.flowerpotSpritePath)
+        flowepot1 = Decoration(700, 435, const.flowerpotSpritePath)
+        flowepot2 = Decoration(1100, 435, const.flowerpotSpritePath)
+        greekColumn1 = Decoration(920, 420, const.greekColumnSpritePath)
+        greekColumn2 = Decoration(1300, 420, const.greekColumnSpritePath)
         decorationsGroup = pygame.sprite.Group()
         decorationsGroup.add(flowepot1)
+        decorationsGroup.add(flowepot2)
+        decorationsGroup.add(greekColumn1)
+        decorationsGroup.add(greekColumn2)
 
         #keys
         blackDoorKey = Key(1100, 450, const.blackDoorKeyPath)
@@ -137,7 +143,7 @@ class GameState():
                                     print("secret door accessed")
                         for npc in npcGroup:
                             if player.rect.colliderect(npc.rect):
-                                npc.interact(const.BLACK)
+                                npc.interact(const.WHITE)
                                 dis.blit(npc.getInteractionMessage(), (0, 0))
                                 dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
                                 pygame.display.update()
