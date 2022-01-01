@@ -18,3 +18,6 @@ class NPC(pygame.sprite.Sprite):
 
     def getInteractionMessage(self):
         return self.message
+
+    def flip(self):
+        self.image = pygame.transform.flip(self.image, True, False)

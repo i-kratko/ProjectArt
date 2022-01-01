@@ -43,5 +43,7 @@ mountainsInteraction = "What in interesting piece"
 oldManInteraction = "These paintings are truly amazing, aren't they?"
 ##### OTHER INTERACTIONS #####
 pressSpaceToContinue = "Press SPACE to continue."
+pickupKey1 = "Where could this key lead to?"
+doorLocked = "This door appears to be locked"
 ##### DOORS #####
 doorToSecondGallery = ""

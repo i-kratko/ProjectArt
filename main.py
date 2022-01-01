@@ -104,7 +104,9 @@ class GameState():
         keyGroup.add(blackDoorKey)
 
         #messages
-        pressSpaceToContinue = Message(const.pressSpaceToContinue, [255, 255, 255])
+        pressSpaceToContinue = Message(const.pressSpaceToContinue, const.WHITE)
+        pickupKeyMessage = Message(const.pickupKey1, const.WHITE)
+        doorLockedMessage = Message(const.doorLocked, const.WHITE)
 
         #camera
         camera = Camera(player)
@@ -141,6 +143,12 @@ class GameState():
                                     self.stateManager()
                                 if door == secretGalleryDoor and data["playerHasBlackKey"] == "yes":
                                     print("secret door accessed")
+                                if door == secretGalleryDoor and data["playerHasBlackKey"] == "no":
+                                    print("cant access this door")
+                                    dis.blit(doorLockedMessage.getMessage(), (0, 0))
+                                    dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
+                                    pygame.display.update()
+                                    pause = True
                         for npc in npcGroup:
                             if player.rect.colliderect(npc.rect):
                                 npc.interact(const.WHITE)
@@ -152,6 +160,10 @@ class GameState():
                             if player.rect.colliderect(key.rect):
                                 print("collisionus")
                                 key.interact()
+                                dis.blit(pickupKeyMessage.getMessage(), (0, 0))
+                                dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
+                                pygame.display.update()
+                                pause = True
                                 if key == blackDoorKey:
                                     data["playerHasBlackKey"] = "yes"
                 if event.type == pygame.KEYUP:
