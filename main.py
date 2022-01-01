@@ -230,7 +230,21 @@ class GameState():
         doorGroup.add(firstGalleryDoor)
 
         #npcs
+        artEnthusiast = NPC(650, 400, const.artEnthusiastInteraction, const.artEnthusiastNPCSpritePath)
+        artEnthusiast.flip()
         npcGroup = pygame.sprite.Group()
+        npcGroup.add(artEnthusiast)
+
+        #decorations
+        flowepot1 = Decoration(325, 435, const.flowerpotSpritePath)
+        flowepot2 = Decoration(1100, 435, const.flowerpotSpritePath)
+        greekColumn1 = Decoration(500, 419, const.greekColumnSpritePath)
+        greekColumn2 = Decoration(1300, 419, const.greekColumnSpritePath)
+        decorationsGroup = pygame.sprite.Group()
+        decorationsGroup.add(flowepot1)
+        decorationsGroup.add(flowepot2)
+        decorationsGroup.add(greekColumn1)
+        decorationsGroup.add(greekColumn2)
 
         #messages
         pressSpaceToContinue = Message(const.pressSpaceToContinue, [255, 255, 255])
@@ -270,7 +284,7 @@ class GameState():
                                     self.stateManager()
                         for npc in npcGroup:
                             if player.rect.colliderect(npc.rect):
-                                npc.interact(const.BLACK)
+                                npc.interact(const.WHITE)
                                 dis.blit(npc.getInteractionMessage(), (0, 0))
                                 dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
                                 pygame.display.update()
@@ -303,6 +317,8 @@ class GameState():
                 dis.blit(door.image, (door.rect.x - camera.offset.x, door.rect.y - camera.offset.y - 64 - const.OFFSETYFORMAPS))
             for npc in npcGroup:
                 dis.blit(npc.image, (npc.rect.x - camera.offset.x, npc.rect.y - camera.offset.y - const.OFFSETYFORMAPS))
+            for decoration in decorationsGroup:
+                dis.blit(decoration.image, (decoration.rect.x - camera.offset.x, decoration.rect.y - camera.offset.y - const.OFFSETYFORMAPS - 3))
             dis.blit(player.image, (player.rect.x - camera.offset.x, player.rect.y - camera.offset.y - const.OFFSETYFORMAPS))
             pygame.display.update()
 

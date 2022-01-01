@@ -12,6 +12,7 @@ BLACK = [0, 0, 0]
 mainMenuStartButtonPath = "Sprites/StartButton.png"
 playerSpritePath = "Sprites\PlayerSprite.png"
 oldManNPCSpritePath = "Sprites\OldManNPCSprite.png"
+artEnthusiastNPCSpritePath = "Sprites\ArtEnthusiastNPCSprite.png"
 flowerpotSpritePath = "Sprites\Flowerpot.png"
 greekColumnSpritePath = "Sprites\GreekColumn.png"
 backgroundPath = "Sprites\Background.png"
@@ -41,6 +42,7 @@ snowmanInteraction = "Okay?..."
 mountainsInteraction = "What in interesting piece"
 ##### NPC INETRACTIONS #####
 oldManInteraction = "These paintings are truly amazing, aren't they?"
+artEnthusiastInteraction = "I really love art!"
 ##### OTHER INTERACTIONS #####
 pressSpaceToContinue = "Press SPACE to continue."
 pickupKey1 = "Where could this key lead to?"
