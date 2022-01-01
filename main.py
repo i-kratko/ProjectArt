@@ -101,7 +101,11 @@ class GameState():
         #keys
         blackDoorKey = Key(1100, 450, const.blackDoorKeyPath)
         keyGroup = pygame.sprite.Group()
-        keyGroup.add(blackDoorKey)
+        ##check if player already has the key
+        if data["playerHasBlackKey"] == "yes":
+            blackDoorKey.destroy()
+        else:
+            keyGroup.add(blackDoorKey)
 
         #messages
         pressSpaceToContinue = Message(const.pressSpaceToContinue, const.WHITE)

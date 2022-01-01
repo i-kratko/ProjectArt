@@ -13,3 +13,7 @@ class Key(pygame.sprite.Sprite):
 
     def interact(self):
         print("Key")
+        self.destroy()
+
+    def destroy(self):
+        self.kill()
