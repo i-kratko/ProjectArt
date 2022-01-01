@@ -19,7 +19,7 @@ data = {
     'playerHasBlackKey' : "no"
 }
 
-data = saveData.loadData("ProjectArt\save.txt")
+data = saveData.loadData("save.txt")
 
 class GameState():
     def __init__(self):
@@ -119,7 +119,7 @@ class GameState():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     gameOver = True
-                    saveData.saveData("ProjectArt\save.txt", data)
+                    saveData.saveData("save.txt", data)
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
@@ -242,7 +242,7 @@ class GameState():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     gameOver = True
-                    saveData.saveData("ProjectArt\save.txt", data)
+                    saveData.saveData("save.txt", data)
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
