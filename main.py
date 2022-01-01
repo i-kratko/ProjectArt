@@ -90,8 +90,8 @@ class GameState():
         #decorations
         flowepot1 = Decoration(700, 435, const.flowerpotSpritePath)
         flowepot2 = Decoration(1100, 435, const.flowerpotSpritePath)
-        greekColumn1 = Decoration(920, 420, const.greekColumnSpritePath)
-        greekColumn2 = Decoration(1300, 420, const.greekColumnSpritePath)
+        greekColumn1 = Decoration(920, 419, const.greekColumnSpritePath)
+        greekColumn2 = Decoration(1300, 419, const.greekColumnSpritePath)
         decorationsGroup = pygame.sprite.Group()
         decorationsGroup.add(flowepot1)
         decorationsGroup.add(flowepot2)
