@@ -31,15 +31,21 @@ whiteWall =  "Tiles\WhiteWall.png"
 brownFloor1 =  "Tiles\BrownFloor1.png"
 brownFloor2 =  "Tiles\BrownFloor2.png"
 ##### PAINTING SPRITES ######
+#first gallery
 treeInAFlied = "Sprites\TreeInAField.png"
 sunsetByTheSea = "Sprites\SunsetByTheSea.png"
 snowman = "Sprites\Snowman.png"
 mountains = "Sprites\Mountains.png"
+#second gallery
+castle = "Sprites\Castle.png"
+newspaper = "Sprites\\Newspaper.png"
 ##### PAINTING INTERACTONS ######
-treeInAFieldInteraction = "What a peaceful painting"
-sunsetByTheSeaInteraction = "What a beautiful sunset"
+treeInAFieldInteraction = "What a peaceful painting."
+sunsetByTheSeaInteraction = "What a beautiful sunset."
 snowmanInteraction = "Okay?..."
-mountainsInteraction = "What in interesting piece"
+mountainsInteraction = "What in interesting piece."
+castleInteraction = "A fascinating medieval castle."
+newspaperInteraction = "I feel like I'm forgetting something."
 ##### NPC INETRACTIONS #####
 oldManInteraction = "These paintings are truly amazing, aren't they?"
 artEnthusiastInteraction = "I really love art!"

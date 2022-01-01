@@ -1,3 +1,4 @@
+from typing import cast
 import pygame
 import sys
 import const
@@ -222,7 +223,11 @@ class GameState():
         playerGroup.add(player)
 
         #paintings
+        castle = Painting(315, 350, const.castleInteraction, const.castle)
+        newspaper = Painting(500, 350, const.newspaperInteraction, const.newspaper)
         paintingGroup = pygame.sprite.Group()
+        paintingGroup.add(castle)
+        paintingGroup.add(newspaper)
 
         #doors
         firstGalleryDoor = Door(400, 400, const.whiteDoorPath)
@@ -238,7 +243,7 @@ class GameState():
         #decorations
         flowepot1 = Decoration(325, 435, const.flowerpotSpritePath)
         flowepot2 = Decoration(1100, 435, const.flowerpotSpritePath)
-        greekColumn1 = Decoration(500, 419, const.greekColumnSpritePath)
+        greekColumn1 = Decoration(600, 419, const.greekColumnSpritePath)
         greekColumn2 = Decoration(1300, 419, const.greekColumnSpritePath)
         decorationsGroup = pygame.sprite.Group()
         decorationsGroup.add(flowepot1)
@@ -247,7 +252,7 @@ class GameState():
         decorationsGroup.add(greekColumn2)
 
         #messages
-        pressSpaceToContinue = Message(const.pressSpaceToContinue, [255, 255, 255])
+        pressSpaceToContinue = Message(const.pressSpaceToContinue, const.WHITE)
 
         #camera
         camera = Camera(player)
