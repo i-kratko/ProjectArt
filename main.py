@@ -225,9 +225,15 @@ class GameState():
         #paintings
         castle = Painting(315, 350, const.castleInteraction, const.castle)
         newspaper = Painting(500, 350, const.newspaperInteraction, const.newspaper)
+        sightseeing = Painting(700, 350, const.sightseeingInteraction, const.sightseeing)
+        boxed = Painting(900, 350, const.boxedInteraction, const.boxed)
+        astronautInTheOcean = Painting(1100, 350, const.astronautInTheOceanInteraction, const.astronautInTheOcean)
         paintingGroup = pygame.sprite.Group()
         paintingGroup.add(castle)
         paintingGroup.add(newspaper)
+        paintingGroup.add(sightseeing)
+        paintingGroup.add(boxed)
+        paintingGroup.add(astronautInTheOcean)
 
         #doors
         firstGalleryDoor = Door(400, 400, const.whiteDoorPath)
