@@ -228,34 +228,49 @@ class GameState():
         sightseeing = Painting(700, 350, const.sightseeingInteraction, const.sightseeing)
         boxed = Painting(900, 350, const.boxedInteraction, const.boxed)
         astronautInTheOcean = Painting(1100, 350, const.astronautInTheOceanInteraction, const.astronautInTheOcean)
+        boat = Painting(1300, 350, const.boatInteraction, const.boat)
+        help = Painting(1480, 350, const.helpInteraction, const.help)
         paintingGroup = pygame.sprite.Group()
         paintingGroup.add(castle)
         paintingGroup.add(newspaper)
         paintingGroup.add(sightseeing)
         paintingGroup.add(boxed)
         paintingGroup.add(astronautInTheOcean)
+        paintingGroup.add(boat)
+        paintingGroup.add(help)
 
         #doors
         firstGalleryDoor = Door(400, 400, const.whiteDoorPath)
+        galleryOwnerOfficeDoor = Door(1380, 400, const.whiteDoorPath)
         doorGroup = pygame.sprite.Group()
         doorGroup.add(firstGalleryDoor)
+        doorGroup.add(galleryOwnerOfficeDoor)
 
         #npcs
         artEnthusiast = NPC(650, 400, const.artEnthusiastInteraction, const.artEnthusiastNPCSpritePath)
         artEnthusiast.flip()
+        redHairMan = NPC(1050, 400, const.redHairManInteraction, const.redHairManNPCSpritePath)
         npcGroup = pygame.sprite.Group()
         npcGroup.add(artEnthusiast)
+        npcGroup.add(redHairMan)
 
         #decorations
         flowepot1 = Decoration(325, 435, const.flowerpotSpritePath)
-        flowepot2 = Decoration(1100, 435, const.flowerpotSpritePath)
+        flowepot2 = Decoration(1490, 435, const.flowerpotSpritePath)
         greekColumn1 = Decoration(600, 419, const.greekColumnSpritePath)
-        greekColumn2 = Decoration(1300, 419, const.greekColumnSpritePath)
+        greekColumn2 = Decoration(800, 419, const.greekColumnSpritePath)
+        greekColumn3 = Decoration(1000, 419, const.greekColumnSpritePath)
+        greekColumn4 = Decoration(1200, 419, const.greekColumnSpritePath)
+        officeSign = Decoration(1380, 275, const.officeSign) 
         decorationsGroup = pygame.sprite.Group()
         decorationsGroup.add(flowepot1)
         decorationsGroup.add(flowepot2)
         decorationsGroup.add(greekColumn1)
         decorationsGroup.add(greekColumn2)
+        decorationsGroup.add(greekColumn3)
+        decorationsGroup.add(greekColumn4)
+        decorationsGroup.add(officeSign)
+    
 
         #messages
         pressSpaceToContinue = Message(const.pressSpaceToContinue, const.WHITE)
