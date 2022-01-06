@@ -17,7 +17,10 @@ import saveData
 data = {
     'playerPos' : 400,
     'currentLevel' : const.first_gallery,
-    'playerHasBlackKey' : "no"
+    'playerHasBlackKey' : "no",
+    'guardOneInteracted' : False,
+    'guardTwoInteracted' : False,
+    'galleryOwnerInteracted' : False
 }
 
 data = saveData.loadData("save.txt")
@@ -308,6 +311,10 @@ class GameState():
                                     self.state = const.first_gallery
                                     data["playerPos"] = 820
                                     self.stateManager()
+                                if door == galleryOwnerOfficeDoor:
+                                    self.state = const.office
+                                    data["playerPos"] = 420
+                                    self.stateManager()
                         for npc in npcGroup:
                             if player.rect.colliderect(npc.rect):
                                 npc.interact(const.WHITE)
@@ -352,6 +359,114 @@ class GameState():
             data["playerPos"] = player.rect.x
 
             clock.tick(const.FPS)
+    
+    def office(self):
+        data["currentLevel"] = const.office
+        gameOver = False
+        pause = False
+
+        background = pygame.image.load(const.galleryMap)
+        
+        #player
+        player = Player(f'{data["playerPos"]}', 400, const.playerSpritePath)
+        playerGroup = pygame.sprite.Group()
+        playerGroup.add(player)
+        
+        #paintings
+        paintingGroup = pygame.sprite.Group()
+        
+        #doors
+        backDoor = Door(400, 400, const.whiteDoorPath)
+        doorGroup = pygame.sprite.Group()
+        doorGroup.add(backDoor)
+
+        #npcs
+        guard1 = NPC(600, 400, const.securityGuardNPC1Interaction, const.securityGuardNPC1SpritePath)
+        guard1.flip()
+        guard2 = NPC(800, 400, const.securityGuardNPC2Interaction, const.securityGuardNPC2SpritePath)
+        guard2.flip()
+        npcGroup = pygame.sprite.Group()
+        npcGroup.add(guard1)
+        npcGroup.add(guard2)
+        
+        #decorations
+        decorationsGroup = pygame.sprite.Group()
+        
+        #messages
+        pressSpaceToContinue = Message(const.pressSpaceToContinue, const.WHITE)
+        #camera
+        camera = Camera(player)
+        while not gameOver:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameOver = True
+                    saveData.saveData("save.txt", data)
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_a:
+                        player.left_pressed = True
+                    if event.key == pygame.K_d:
+                        player.right_pressed = True
+                    if event.key == pygame.K_ESCAPE:
+                        self.state = const.main_menu
+                        self.stateManager()
+                    if event.key == pygame.K_q:
+                        for painting in paintingGroup:
+                            if player.rect.colliderect(painting.rect):
+                                painting.interact()
+                                dis.blit(painting.getInteractionMessage(), (0, 0))
+                                dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
+                                pygame.display.update()
+                                pause = True
+                        for door in doorGroup:
+                            if player.rect.colliderect(door.rect):
+                                door.interact()
+                                if door == backDoor:
+                                    self.state = const.second_gallery
+                                    data["playerPos"] = 1400
+                                    self.stateManager()
+                        for npc in npcGroup:
+                            if player.rect.colliderect(npc.rect):
+                                npc.interact(const.WHITE)
+                                dis.blit(npc.getInteractionMessage(), (0, 0))
+                                dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
+                                pygame.display.update()
+                                pause = True    
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_a:
+                        player.left_pressed = False
+                    if event.key == pygame.K_d:
+                        player.right_pressed = False
+            while pause:
+               for event in pygame.event.get():
+                   if event.type == pygame.QUIT:
+                       gameOver = True
+                       pygame.quit()
+                       sys.exit()
+                   if event.type == pygame.KEYDOWN:
+                       if event.key == pygame.K_SPACE:
+                           pause = False
+            #update display
+            player.update()
+            camera.scroll()
+
+            dis.blit(background, (0 - camera.offset.x, 0))
+            for painting in paintingGroup:
+                dis.blit(painting.image, (painting.rect.x - camera.offset.x, painting.rect.y - camera.offset.y))
+            for door in doorGroup:
+                dis.blit(door.image, (door.rect.x - camera.offset.x, door.rect.y - camera.offset.y - 64 - const.OFFSETYFORMAPS))
+            for npc in npcGroup:
+                dis.blit(npc.image, (npc.rect.x - camera.offset.x, npc.rect.y - camera.offset.y - const.OFFSETYFORMAPS))
+            for decoration in decorationsGroup:
+                dis.blit(decoration.image, (decoration.rect.x - camera.offset.x, decoration.rect.y - camera.offset.y - const.OFFSETYFORMAPS - 3))
+            dis.blit(player.image, (player.rect.x - camera.offset.x, player.rect.y - camera.offset.y - const.OFFSETYFORMAPS))
+
+            pygame.display.update()
+
+            #update save data
+            data["playerPos"] = player.rect.x
+            clock.tick(const.FPS)
 
     def stateManager(self):
         if self.state == const.main_menu:
@@ -362,6 +477,8 @@ class GameState():
         if self.state == const.second_gallery:
             data["currentLevel"] = const.second_gallery
             self.secondGallery()
+        if self.state == const.office:
+            self.office()
             
 #setup
 pygame.init()
