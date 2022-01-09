@@ -17,10 +17,12 @@ artEnthusiastNPCSpritePath = "Sprites\ArtEnthusiastNPCSprite.png"
 redHairManNPCSpritePath = "Sprites\RedHairManNPC.png"
 securityGuardNPC1SpritePath = "Sprites\SecurityGuardNPC1.png"
 securityGuardNPC2SpritePath = "Sprites\SecurityGuardNPC2.png"
+galleryOwnerNPCSpritePath = "Sprites\GalleryOwner.png"
 #decorations
 flowerpotSpritePath = "Sprites\Flowerpot.png"
 greekColumnSpritePath = "Sprites\GreekColumn.png"
 officeSign = "Sprites\OfficeSign.png"
+officeDesk = "Sprites\OfficeDesk.png"
 #
 backgroundPath = "Sprites\Background.png"
 #doors
@@ -30,9 +32,13 @@ blackDoorPath = "Sprites\BlackDoor.png"
 blackDoorKeyPath = "Sprites\BlackDoorKey.png"
 ##### GAME STATES #####
 main_menu = "main_menu"
+#First stage
 first_gallery = "first_gallery"
 second_gallery = "second_gallery"
 office = "office"
+firstGuardMinigame = "first_guard_minigame"
+secondGuardMinigame = "second_guard_minigame"
+galleryOwnerBossMinigame = "gallery_owner_boss_minigame"
 ##### MAPS #####
 galleryMap = "Maps\Gallery.png"
 ##### TILES #####

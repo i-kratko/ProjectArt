@@ -18,9 +18,9 @@ data = {
     'playerPos' : 400,
     'currentLevel' : const.first_gallery,
     'playerHasBlackKey' : "no",
-    'guardOneInteracted' : False,
-    'guardTwoInteracted' : False,
-    'galleryOwnerInteracted' : False
+    'guardOneBeaten' : False,
+    'guardTwoBeaten' : False,
+    'galleryOwnerBeaten' : False    
 }
 
 data = saveData.loadData("save.txt")
@@ -385,12 +385,17 @@ class GameState():
         guard1.flip()
         guard2 = NPC(800, 400, const.securityGuardNPC2Interaction, const.securityGuardNPC2SpritePath)
         guard2.flip()
+        galleryOwner = NPC(1050, 380, const.artEnthusiastInteraction, const.galleryOwnerNPCSpritePath)
+        galleryOwner.flip()
         npcGroup = pygame.sprite.Group()
         npcGroup.add(guard1)
         npcGroup.add(guard2)
+        npcGroup.add(galleryOwner)
         
         #decorations
+        officeDesk = Decoration(1000, 404, const.officeDesk)
         decorationsGroup = pygame.sprite.Group()
+        decorationsGroup.add(officeDesk)
         
         #messages
         pressSpaceToContinue = Message(const.pressSpaceToContinue, const.WHITE)
@@ -431,6 +436,15 @@ class GameState():
                                 npc.interact(const.WHITE)
                                 dis.blit(npc.getInteractionMessage(), (0, 0))
                                 dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
+                                if npc == guard1 and data["guardOneBeaten"] == False:
+                                    self.state = const.firstGuardMinigame
+                                    self.stateManager()
+                                if npc == guard2 and data["guardTwoBeaten"] == False:
+                                    self.state = const.secondGuardMinigame
+                                    self.stateManager()
+                                if npc == galleryOwner and data["galleryOwnerBeaten"] == False:
+                                    self.state = const.galleryOwnerBossMinigame
+                                    self.stateManager()
                                 pygame.display.update()
                                 pause = True    
                 if event.type == pygame.KEYUP:
@@ -468,6 +482,15 @@ class GameState():
             data["playerPos"] = player.rect.x
             clock.tick(const.FPS)
 
+    def firstGuardMinigame():
+        pass
+
+    def secondGuardMinigame():
+        pass
+
+    def galleryOwnerBossMinigame():
+        pass
+
     def stateManager(self):
         if self.state == const.main_menu:
             self.mainMenu()
@@ -478,7 +501,17 @@ class GameState():
             data["currentLevel"] = const.second_gallery
             self.secondGallery()
         if self.state == const.office:
+            data["currentLevel"] = const.office
             self.office()
+        if self.state == const.firstGuardMinigame:
+            data["currentLevel"] = const.firstGuardMinigame
+            self.firstGuardMinigame()
+        if self.state == const.secondGuardMinigame:
+            data["currentLevel"] = const.secondGuardMinigame
+            self.secondGuardMinigame()
+        if self.state == const.galleryOwnerBossMinigame:
+            data["currentLevel"] = const.galleryOwnerBossMinigame
+            self.galleryOwnerBossMinigame()
             
 #setup
 pygame.init()

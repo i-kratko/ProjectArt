@@ -1,1 +1,1 @@
-{"playerPos": 800, "currentLevel": "office", "playerHasBlackKey": "yes"}
+{"playerPos": 660, "currentLevel": "office", "playerHasBlackKey": "yes"}
