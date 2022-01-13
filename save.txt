@@ -1,1 +1,1 @@
-{"playerPos": 660, "currentLevel": "office", "playerHasBlackKey": "yes"}
+{"playerPos": 620, "currentLevel": "first_guard_minigame", "playerHasBlackKey": "yes", "guardOneBeaten": false, "guardTwoBeaten": false, "galleryOwnerBeaten": false}

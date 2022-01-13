@@ -482,13 +482,94 @@ class GameState():
             data["playerPos"] = player.rect.x
             clock.tick(const.FPS)
 
-    def firstGuardMinigame():
+    def firstGuardMinigame(self):
+        data["currentLevel"] = const.firstGuardMinigame
+        gameOver = False
+        pause = False
+        background = pygame.image.load(const.guardMinigameBackground)
+        maze = pygame.image.load(const.firstGuardMinigameMaze).convert_alpha()
+        mazeMask = pygame.mask.from_surface(maze)
+        mazeRect = maze.get_rect()        
+
+        #player
+        player = Player(50, 500, const.mazePlayerSpritePath)
+        playerGroup = pygame.sprite.Group()
+        playerGroup.add(player)
+
+        while not gameOver:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameOver = True
+                    saveData.saveData("save.txt", data)
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_a:
+                        player.left_pressed = True
+                    if event.key == pygame.K_d:
+                        player.right_pressed = True
+                    if event.key == pygame.K_w:
+                        player.up_pressed = True
+                    if event.key == pygame.K_s:
+                        player.down_pressed = True
+                    if event.key == pygame.K_ESCAPE:
+                        self.state = const.main_menu
+                        self.stateManager()
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_a:
+                        player.left_pressed = False
+                    if event.key == pygame.K_d:
+                        player.right_pressed = False
+                    if event.key == pygame.K_w:
+                        player.up_pressed = False
+                    if event.key == pygame.K_s:
+                        player.down_pressed = False
+                #play area collision
+
+            while pause:
+               for event in pygame.event.get():
+                   if event.type == pygame.QUIT:
+                       gameOver = True
+                       pygame.quit()
+                       sys.exit()
+                   if event.type == pygame.KEYDOWN:
+                       if event.key == pygame.K_SPACE:
+                           pause = False
+            
+            #update display
+            player.mazeMovementUpdate()
+            player.dir()
+            
+            offset = (player.x, player.y)
+            result = mazeMask.overlap(player.mask, offset)
+            if result:
+                player.speed = 0
+                dir = player.direction
+                if dir == const.facingRight:
+                    player.x = lastPlayerX - 2
+                if dir == const.facingLeft:
+                    player.x = lastPlayerX + 2
+                if dir == const.facingUp:
+                    player.y = lastPlayerY + 2
+                if dir == const.facingDown:
+                    player.y = lastPlayerY - 2
+                
+
+            dis.blit(background, (0, 0))
+            dis.blit(maze, (0, 0))
+            dis.blit(player.image, (player.x, player.y))
+            
+            lastPlayerX = player.x
+            lastPlayerY = player.y
+
+            pygame.display.update()
+    
+            clock.tick(const.FPS)
+
+    def secondGuardMinigame(self):
         pass
 
-    def secondGuardMinigame():
-        pass
-
-    def galleryOwnerBossMinigame():
+    def galleryOwnerBossMinigame(self):
         pass
 
     def stateManager(self):

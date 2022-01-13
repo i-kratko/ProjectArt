@@ -8,9 +8,15 @@ OFFSETYFORMAPS = 4
 ##### COLORS #####
 WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
+##### PLAYER #####
+facingRight = "right"
+facingLeft = "left"
+facingUp = "up"
+facingDown = "down"
 ##### SPRITE PATHS #####
 mainMenuStartButtonPath = "Sprites/StartButton.png"
 playerSpritePath = "Sprites\PlayerSprite.png"
+mazePlayerSpritePath = "Sprites\MazePlayerSprite.png"
 #npc
 oldManNPCSpritePath = "Sprites\OldManNPCSprite.png"
 artEnthusiastNPCSpritePath = "Sprites\ArtEnthusiastNPCSprite.png"
@@ -40,7 +46,11 @@ firstGuardMinigame = "first_guard_minigame"
 secondGuardMinigame = "second_guard_minigame"
 galleryOwnerBossMinigame = "gallery_owner_boss_minigame"
 ##### MAPS #####
+#gallery
 galleryMap = "Maps\Gallery.png"
+#guard minigames
+guardMinigameBackground = "Maps\FirstMinigame1.png"
+firstGuardMinigameMaze = "Maps\FirstMinigame2.png"
 ##### TILES #####
 whiteWall =  "Tiles\WhiteWall.png"
 brownFloor1 =  "Tiles\BrownFloor1.png"
