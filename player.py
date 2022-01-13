@@ -58,19 +58,19 @@ class Player(pygame.sprite.Sprite):
             self.facing_down = False
             self.facing_right = False
             self.facing_left = True
-        if self.right_pressed and not self.left_pressed:
+        elif self.right_pressed and not self.left_pressed:
             self.velX += self.speed
             self.facing_up = False
             self.facing_down = False
             self.facing_right = True
             self.facing_left = False
-        if self.up_pressed and not self.down_pressed:
+        elif self.up_pressed and not self.down_pressed:
             self.velY -= self.speed
             self.facing_up = True
             self.facing_down = False
             self.facing_right = False
             self.facing_left = False
-        if self.down_pressed and not self.up_pressed:
+        elif self.down_pressed and not self.up_pressed:
             self.velY += self.speed
             self.facing_up = False
             self.facing_down = True

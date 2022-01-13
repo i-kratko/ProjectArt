@@ -506,11 +506,11 @@ class GameState():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_a:
                         player.left_pressed = True
-                    if event.key == pygame.K_d:
+                    elif event.key == pygame.K_d:
                         player.right_pressed = True
-                    if event.key == pygame.K_w:
+                    elif event.key == pygame.K_w:
                         player.up_pressed = True
-                    if event.key == pygame.K_s:
+                    elif event.key == pygame.K_s:
                         player.down_pressed = True
                     if event.key == pygame.K_ESCAPE:
                         self.state = const.main_menu
@@ -518,11 +518,11 @@ class GameState():
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_a:
                         player.left_pressed = False
-                    if event.key == pygame.K_d:
+                    elif event.key == pygame.K_d:
                         player.right_pressed = False
-                    if event.key == pygame.K_w:
+                    elif event.key == pygame.K_w:
                         player.up_pressed = False
-                    if event.key == pygame.K_s:
+                    elif event.key == pygame.K_s:
                         player.down_pressed = False
                 #play area collision
 
@@ -544,15 +544,17 @@ class GameState():
             result = mazeMask.overlap(player.mask, offset)
             if result:
                 player.speed = 0
+                player.velX = 0
+                player.velY = 0
                 dir = player.direction
                 if dir == const.facingRight:
-                    player.x = lastPlayerX - 2
-                if dir == const.facingLeft:
-                    player.x = lastPlayerX + 2
-                if dir == const.facingUp:
-                    player.y = lastPlayerY + 2
-                if dir == const.facingDown:
-                    player.y = lastPlayerY - 2
+                    player.x -= 5
+                elif dir == const.facingLeft:
+                    player.x += 5
+                elif dir == const.facingUp:
+                    player.y += 5
+                elif dir == const.facingDown:
+                    player.y -= 5
                 
 
             dis.blit(background, (0, 0))
