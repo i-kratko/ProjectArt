@@ -437,6 +437,8 @@ class GameState():
                                 npc.interact(const.WHITE)
                                 dis.blit(npc.getInteractionMessage(), (0, 0))
                                 dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
+                                pygame.display.update()
+                                pause = True
                                 if npc == guard1 and data["guardOneBeaten"] == False:
                                     self.state = const.firstGuardMinigame
                                     data["playerPos"] = player.rect.x
@@ -449,8 +451,6 @@ class GameState():
                                     self.state = const.galleryOwnerBossMinigame
                                     data["playerPos"] = player.rect.x
                                     self.stateManager()
-                                pygame.display.update()
-                                pause = True    
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_a:
                         player.left_pressed = False
