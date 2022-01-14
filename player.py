@@ -84,6 +84,10 @@ class Player(pygame.sprite.Sprite):
         
         self.x += self.velX
         self.y += self.velY
+
+        if self.x < 0:
+            self.x += 5
+
         self.rect = pygame.Rect(int(self.x), int(self.y), 32, 64)
 
     #dir

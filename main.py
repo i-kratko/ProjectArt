@@ -12,6 +12,7 @@ from door import Door
 from npc import NPC
 from key import Key
 from decoration import Decoration
+from trigger import Trigger
 import saveData
 
 data = {
@@ -438,12 +439,15 @@ class GameState():
                                 dis.blit(pressSpaceToContinue.getMessage(), (0, 50))
                                 if npc == guard1 and data["guardOneBeaten"] == False:
                                     self.state = const.firstGuardMinigame
+                                    data["playerPos"] = player.rect.x
                                     self.stateManager()
                                 if npc == guard2 and data["guardTwoBeaten"] == False:
                                     self.state = const.secondGuardMinigame
+                                    data["playerPos"] = player.rect.x
                                     self.stateManager()
                                 if npc == galleryOwner and data["galleryOwnerBeaten"] == False:
                                     self.state = const.galleryOwnerBossMinigame
+                                    data["playerPos"] = player.rect.x
                                     self.stateManager()
                                 pygame.display.update()
                                 pause = True    
@@ -492,9 +496,14 @@ class GameState():
         mazeRect = maze.get_rect()        
 
         #player
-        player = Player(50, 500, const.mazePlayerSpritePath)
+        player = Player(40, 165, const.mazePlayerSpritePath)
         playerGroup = pygame.sprite.Group()
         playerGroup.add(player)
+
+        #triggers
+        endMazeTrigger = Trigger(740, 420, 60, 60)
+        triggerGroup = []
+        triggerGroup.append(endMazeTrigger)
 
         while not gameOver:
             for event in pygame.event.get():
@@ -524,7 +533,13 @@ class GameState():
                         player.up_pressed = False
                     elif event.key == pygame.K_s:
                         player.down_pressed = False
-                #play area collision
+                for trigger in triggerGroup:
+                    if player.rect.colliderect(trigger.rect):
+                        if trigger == endMazeTrigger:
+                            trigger.defaultTrigger()
+                            self.state = const.office
+                            data["guardOneBeaten"] = True
+                            self.stateManager()
 
             while pause:
                for event in pygame.event.get():
@@ -560,9 +575,9 @@ class GameState():
             dis.blit(background, (0, 0))
             dis.blit(maze, (0, 0))
             dis.blit(player.image, (player.x, player.y))
-            
-            lastPlayerX = player.x
-            lastPlayerY = player.y
+
+            for t in triggerGroup:
+                dis.blit(t.trigger, (t.x, t.y))
 
             pygame.display.update()
     
