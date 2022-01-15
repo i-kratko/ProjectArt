@@ -49,8 +49,11 @@ galleryOwnerBossMinigame = "gallery_owner_boss_minigame"
 #gallery
 galleryMap = "Maps\Gallery.png"
 #guard minigames
-guardMinigameBackground = "Maps\FirstMinigame1.png"
-firstGuardMinigameMaze = "Maps\FirstMinigame2.png"
+guardMinigameBackground = "Maps\MazeBG.png"
+firstGuardMinigameMaze = "Maps\FirstMinigameMaze.png"
+secondGuardMinigameMaze = "Maps\SecondMinigameMaze.png"
+bossMinigameMap = "Maps\BossMinigameMap.png"
+bossMinigameMapTps = "Maps\BossMinigameTps.png"
 ##### TILES #####
 whiteWall =  "Tiles\WhiteWall.png"
 brownFloor1 =  "Tiles\BrownFloor1.png"

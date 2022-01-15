@@ -1,1 +1,1 @@
-{"playerPos": 590, "currentLevel": "office", "playerHasBlackKey": "yes", "guardOneBeaten": true, "guardTwoBeaten": false, "galleryOwnerBeaten": false}
+{"playerPos": 600, "currentLevel": "first_gallery", "playerHasBlackKey": "yes", "guardOneBeaten": true, "guardTwoBeaten": true, "galleryOwnerBeaten": true}

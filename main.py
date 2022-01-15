@@ -443,11 +443,11 @@ class GameState():
                                     self.state = const.firstGuardMinigame
                                     data["playerPos"] = player.rect.x
                                     self.stateManager()
-                                if npc == guard2 and data["guardTwoBeaten"] == False:
+                                if npc == guard2 and data["guardTwoBeaten"] == False and data["guardOneBeaten"] == True:
                                     self.state = const.secondGuardMinigame
                                     data["playerPos"] = player.rect.x
                                     self.stateManager()
-                                if npc == galleryOwner and data["galleryOwnerBeaten"] == False:
+                                if npc == galleryOwner and data["galleryOwnerBeaten"] == False and data["guardOneBeaten"] == True and data["guardTwoBeaten"] == True:
                                     self.state = const.galleryOwnerBossMinigame
                                     data["playerPos"] = player.rect.x
                                     self.stateManager()
@@ -493,7 +493,6 @@ class GameState():
         background = pygame.image.load(const.guardMinigameBackground)
         maze = pygame.image.load(const.firstGuardMinigameMaze).convert_alpha()
         mazeMask = pygame.mask.from_surface(maze)
-        mazeRect = maze.get_rect()        
 
         #player
         player = Player(40, 165, const.mazePlayerSpritePath)
@@ -584,10 +583,252 @@ class GameState():
             clock.tick(const.FPS)
 
     def secondGuardMinigame(self):
-        pass
+        data["currentLevel"] = const.secondGuardMinigame
+        gameOver = False
+        pause = False
+        background = pygame.image.load(const.guardMinigameBackground)
+        maze = pygame.image.load(const.secondGuardMinigameMaze).convert_alpha()
+        mazeMask = pygame.mask.from_surface(maze)     
+
+        #player
+        player = Player(40, 165, const.mazePlayerSpritePath)
+        playerGroup = pygame.sprite.Group()
+        playerGroup.add(player)
+
+        #triggers
+        endMazeTrigger = Trigger(740, 420, 60, 60)
+        trapTrigger1 = Trigger(430, 140, 60, 60)
+        trapTrigger2 = Trigger(370, 420, 60, 60)
+        trapTrigger3 = Trigger(90, 510, 60, 60)
+
+        trapTrigger1.makeIntoTrapTrigger()
+        trapTrigger2.makeIntoTrapTrigger()
+        trapTrigger3.makeIntoTrapTrigger()
+
+        triggerGroup = []
+        triggerGroup.append(endMazeTrigger)
+        triggerGroup.append(trapTrigger1)
+        triggerGroup.append(trapTrigger2)
+        triggerGroup.append(trapTrigger3)
+
+        while not gameOver:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameOver = True
+                    saveData.saveData("save.txt", data)
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_a:
+                        player.left_pressed = True
+                    elif event.key == pygame.K_d:
+                        player.right_pressed = True
+                    elif event.key == pygame.K_w:
+                        player.up_pressed = True
+                    elif event.key == pygame.K_s:
+                        player.down_pressed = True
+                    if event.key == pygame.K_ESCAPE:
+                        self.state = const.main_menu
+                        self.stateManager()
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_a:
+                        player.left_pressed = False
+                    elif event.key == pygame.K_d:
+                        player.right_pressed = False
+                    elif event.key == pygame.K_w:
+                        player.up_pressed = False
+                    elif event.key == pygame.K_s:
+                        player.down_pressed = False
+                for trigger in triggerGroup:
+                    if player.rect.colliderect(trigger.rect):
+                        if trigger == endMazeTrigger:
+                            trigger.defaultTrigger()
+                            self.state = const.office
+                            data["guardTwoBeaten"] = True
+                            self.stateManager()
+                        if trigger.trapTrigger:
+                            self.stateManager()
+
+            while pause:
+               for event in pygame.event.get():
+                   if event.type == pygame.QUIT:
+                       gameOver = True
+                       pygame.quit()
+                       sys.exit()
+                   if event.type == pygame.KEYDOWN:
+                       if event.key == pygame.K_SPACE:
+                           pause = False
+            
+            #update display
+            player.mazeMovementUpdate()
+            player.dir()
+            
+            #maze wall collision handling
+            offset = (player.x, player.y)
+            result = mazeMask.overlap(player.mask, offset)
+            if result:
+                player.speed = 0
+                player.velX = 0
+                player.velY = 0
+                dir = player.direction
+                if dir == const.facingRight:
+                    player.x -= 5
+                elif dir == const.facingLeft:
+                    player.x += 5
+                elif dir == const.facingUp:
+                    player.y += 5
+                elif dir == const.facingDown:
+                    player.y -= 5
+                
+
+            dis.blit(background, (0, 0))
+            dis.blit(maze, (0, 0))
+            dis.blit(player.image, (player.x, player.y))
+
+            for t in triggerGroup:
+                dis.blit(t.trigger, (t.x, t.y))
+
+            pygame.display.update()
+    
+            clock.tick(const.FPS)
 
     def galleryOwnerBossMinigame(self):
-        pass
+        data["currentLevel"] = const.galleryOwnerBossMinigame
+        gameOver = False
+        pause = False
+        background = pygame.image.load(const.guardMinigameBackground)
+        maze = pygame.image.load(const.bossMinigameMap).convert_alpha()
+        mazeMask = pygame.mask.from_surface(maze)
+        tpPoints = pygame.image.load(const.bossMinigameMapTps)    
+
+        levelCompletion = [] 
+
+        #player
+        player = Player(40, 165, const.mazePlayerSpritePath)
+        playerGroup = pygame.sprite.Group()
+        playerGroup.add(player)
+
+        #triggers
+        endMazeTrigger = Trigger(740, 30, 60, 60)
+
+        greenTp1 = Trigger(140, 240, 50, 50)
+        greenTp2 = Trigger(10, 90, 50, 50)
+        greenTp3 = Trigger(730, 530, 50, 50)
+
+        darkBlueTp = Trigger(370, 340, 50, 50)
+        cyanTp = Trigger(370, 100, 50, 50)
+        purpleTp = Trigger(20, 460, 50, 50)
+        redTp = Trigger(510, 220, 50, 50)
+        redTp.makeIntoTrapTrigger()
+
+        triggerGroup = []
+        triggerGroup.append(endMazeTrigger)
+        triggerGroup.append(greenTp1)
+        triggerGroup.append(greenTp2)
+        triggerGroup.append(greenTp3)
+        triggerGroup.append(darkBlueTp)
+        triggerGroup.append(cyanTp)
+        triggerGroup.append(purpleTp)
+        triggerGroup.append(redTp)
+
+        while not gameOver:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameOver = True
+                    saveData.saveData("save.txt", data)
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_a:
+                        player.left_pressed = True
+                    elif event.key == pygame.K_d:
+                        player.right_pressed = True
+                    elif event.key == pygame.K_w:
+                        player.up_pressed = True
+                    elif event.key == pygame.K_s:
+                        player.down_pressed = True
+                    if event.key == pygame.K_ESCAPE:
+                        self.state = const.main_menu
+                        self.stateManager()
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_a:
+                        player.left_pressed = False
+                    elif event.key == pygame.K_d:
+                        player.right_pressed = False
+                    elif event.key == pygame.K_w:
+                        player.up_pressed = False
+                    elif event.key == pygame.K_s:
+                        player.down_pressed = False
+                for trigger in triggerGroup:
+                    if player.rect.colliderect(trigger.rect):
+                        if trigger == endMazeTrigger:
+                            trigger.defaultTrigger()
+                            self.state = const.office
+                            data["galleryOwnerBeaten"] = True
+                            self.stateManager()
+                        if trigger == greenTp1 or trigger == greenTp2 or trigger == greenTp3:
+                            player.x, player.y = 280, 230
+                        if trigger == greenTp2:
+                            levelCompletion.append("cyan")
+                        if trigger == greenTp3:
+                            levelCompletion.append("darkblue")
+                        if trigger == darkBlueTp:
+                            player.x, player.y = 520, 340
+                        if trigger == cyanTp:
+                            player.x, player.y = 520, 110
+                        if trigger == purpleTp:
+                            player.x, player.y = 30, 540
+                        if trigger == redTp:
+                            player.x, player.y = 670, 170
+                        if trigger.trapTrigger:
+                            self.stateManager()
+
+            if len(levelCompletion) >= 2 and levelCompletion[0] == "darkblue":
+                redTp.disableTrapTrigger()
+
+            while pause:
+               for event in pygame.event.get():
+                   if event.type == pygame.QUIT:
+                       gameOver = True
+                       pygame.quit()
+                       sys.exit()
+                   if event.type == pygame.KEYDOWN:
+                       if event.key == pygame.K_SPACE:
+                           pause = False
+            
+            #update display
+            player.mazeMovementUpdate()
+            player.dir()
+            
+            #maze wall collision handling
+            offset = (player.x, player.y)
+            result = mazeMask.overlap(player.mask, offset)
+            if result:
+                player.speed = 0
+                player.velX = 0
+                player.velY = 0
+                dir = player.direction
+                if dir == const.facingRight:
+                    player.x -= 5
+                elif dir == const.facingLeft:
+                    player.x += 5
+                elif dir == const.facingUp:
+                    player.y += 5
+                elif dir == const.facingDown:
+                    player.y -= 5
+                
+
+            dis.blit(background, (0, 0))
+            dis.blit(maze, (0, 0))
+            dis.blit(tpPoints, (0, 0))
+            dis.blit(player.image, (player.x, player.y))
+
+            for t in triggerGroup:
+                dis.blit(t.trigger, (t.x, t.y))
+
+            pygame.display.update()
+    
+            clock.tick(const.FPS)
 
     def stateManager(self):
         if self.state == const.main_menu:
